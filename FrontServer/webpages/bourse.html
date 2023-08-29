@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="global">
+        <div class="center">
+            <h1>Bourse at the moment :</h1>
+        </div>
+        <div class="cards">
+            <div class="container">
+                <div class="card">
+                  <div class="box">
+                    <div class="content">
+                      <h2>01</h2>
+                      <h3>Bourse</h3>
+                      <table id="bourse"></table>
+                      <a href="/">Home</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <script>   
+        async function getAPI() {
+            const requestURL = 'http://localhost:3000/bourse-api';
+            const request = new Request(requestURL);
+            const response = await fetch(request);
+            const API = await response.json();
+            console.log(API);
+            showBourse(API);
+        }    
+        getAPI()
+
+        function showBourse(obj) {
+                var tab = `<tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Variations</th>
+                    </tr>`;
+                 
+                for (let i of obj) {
+                    tab += `<tr> 
+                        <td>${i.name} </td>
+                        <td>${i.price}</td>
+                        <td>${i.var}</td>        
+                        </tr>`;
+                }
+                document.getElementById("bourse").innerHTML = tab;
+            }
+        </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Fuel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="global">
+        <div class="center">
+            <h1>Fuel :</h1>
+        </div>
+        <div class="cards">
+            <table id="fuel"></table>
+        </div>
+    </div>
+    
+
+    <script>   
+        async function getAPI() {
+            const requestURL = 'http://localhost:3000/fuel-api';
+            const request = new Request(requestURL);
+            const response = await fetch(request);
+            const API = await response.json();
+            console.log(API);
+            showFuel(API);
+        }    
+        getAPI()
+
+        function showFuel(obj) {
+                var tab = `<tr>
+                    <th>Name    </br>  </br>  </br>  </br>  </br>  </br></br>  </br>  </br></th>
+                    <th>Gasoil    </br>  </br></br>  </br>  </br></th>
+                    <th>SP98   </br>  </br> </br>  </br>  </br></th>
+                    <th>SP95    </br>  </br></br>  </br>  </br></th>
+                    <th>E10    </br>  </br></br>  </br>  </br></th>
+                    <th>E85    </br>  </br></br>  </br>  </br></th>
+                    <th>GPL  </br>  </br>  </br>  </br>  </br></th>
+                    </tr>`;
+                for (let i of obj) {
+                    console.log(i.gasoil)
+                    tab += `<tr> 
+                        <td>${i.name} </td>
+                        <td>${i.gasoil}</td>
+                        <td>${i.sp98}</td>   
+                        <td>${i.sp95}</td>   
+                        <td>${i.e10}</td>        
+                        <td>${i.e85}</td>   
+                        <td>${i.gpl}</td>   
+                        </tr>`;
+                }
+                document.getElementById("fuel").innerHTML = tab;
+            }
+        </script>
+</body>
+</html>

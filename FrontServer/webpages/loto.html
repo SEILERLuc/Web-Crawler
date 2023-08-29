@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Loto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--<div class="global">
+        <div class="center">
+            <h1>Result :</h1>
+        </div>
+        <div class="cards">
+            <h2 id="date"></h2>
+            <section>
+
+            </section>
+        </div>
+    </div>-->
+
+    <div class="global">
+        <div class="center">
+            <h1>Result :</h1>
+        </div>
+        <div class="cards">
+            <h2 id="date"></h2>
+            <div class="center">
+                <h1>Loto result :</h1>
+            </div>
+            <div class="cards">
+                <div class="container">
+                    <div class="card">
+                      <div class="box">
+                        <div class="content">
+                          <h2>03</h2>
+                          <h3>Loto</h3>
+                          <h4>First Draw / Second Draw</h4></br>
+                            <section>
+                            </section>
+                            <a href="/">Home</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <script>   
+        async function getAPI() {
+            const requestURL = 'http://localhost:3000/loto-api';
+            const request = new Request(requestURL);
+            const response = await fetch(request);
+            const API = await response.json();
+            console.log(API);
+            showLotoData(API);
+        }    
+        getAPI()
+
+        function showLotoData(obj) {
+            //const title = document.getElementById("date")
+            //title.appendChild(obj["Date"])
+            const section = document.querySelector('section');
+            const result_1st = obj['Resultat1'];
+            console.log(result_1st)
+            const result_2nd = obj['Resultat2'];
+            const lotoData = document.createElement('article');
+
+        
+            const myResult = document.createElement('p');
+            for (var i = 0; i < 6; i++) {
+                if (i != 5) {
+                    myResult.textContent += result_1st[i] + " - ";
+                    continue
+                }
+                myResult.textContent += result_1st[i];
+                section.appendChild(myResult);
+            }
+            const myResult2 = document.createElement('p');
+            for (var i = 0; i < 5; i++) {
+                if (i != 4) {
+                    myResult2.textContent += result_2nd[i] + " - ";
+                    continue
+                }
+                myResult2.textContent += result_2nd[i];
+                section.appendChild(myResult2);
+            }
+        }
+        </script>
+</body>
+</html>

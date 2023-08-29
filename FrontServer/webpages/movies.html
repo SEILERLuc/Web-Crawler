@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Games</title>
+    <link rel="stylesheet" href="movie-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="global">
+        <div class="center">
+            <h1>Movies of the day :</h1>
+        </div>
+        <div class="cards">
+            <table id="movies"></table>
+        </div>
+    </div>
+
+    <script>   
+        async function getAPI() {
+            const requestURL = 'http://localhost:3000/movies-api';
+            const request = new Request(requestURL);
+            const response = await fetch(request);
+            const API = await response.json();
+            console.log(API)
+            showMoviesData(API)
+
+        }    
+
+        getAPI();
+
+        function showMoviesData(obj) {
+            console.log(obj)
+            var tab = `<tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Seances</th>
+    
+                    </tr>`;
+            for (let i of obj) {
+                console.log(i.title)
+                console.log(i.seance)
+                tab += `<tr> 
+                    <td><img src=${i.img} alt=i.title></td>  
+                    <td>${i.title} </td>
+                    <td>${i.seance}</td>   
+                    </tr>`;
+            }
+            document.getElementById("movies").innerHTML = tab;
+        }
+        </script>
+</body>
+</html>

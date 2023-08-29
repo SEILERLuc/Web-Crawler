@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--<div class="global">
+        <div class="center">
+            <h1>Get match :</h1>
+        </div>
+        <div class="cards">
+            <section>
+
+            </section>
+        </div>
+    </div>-->
+    <div class="global">
+        <div class="center">
+            <h1>Get match :</h1>
+        </div>
+        <div class="cards">
+            <div class="container">
+                <div class="card">
+                  <div class="box">
+                    <div class="content">
+                      <h2>02</h2>
+                      <h3>League 1</h3>
+                        <section>
+                        </section>
+                      <a href="/">Home</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <script>   
+        async function getAPI() {
+            const requestURL = 'http://localhost:3000/foot-api';
+            const request = new Request(requestURL);
+            const response = await fetch(request);
+            const API = await response.json();
+            console.log(API);
+            showFootMatch(API);
+        }    
+        getAPI()
+
+        function showFootMatch(obj) {
+            const section = document.querySelector('section');
+            const places = obj['lieux'];
+            console.log(obj, places)
+            const hours = obj['horaires'];
+            const myFootData = document.createElement('article');
+        
+            for (var i = 0; i < places.length; i++) {
+                console.log(places[i])
+                const myMatch = document.createElement('p');
+                myMatch.textContent = places[i] + "\n --- " + hours[i];
+                console.log(myMatch)
+                myFootData.appendChild(myMatch)
+                section.appendChild(myFootData);
+            }
+        }
+        </script>
+</body>
+</html>

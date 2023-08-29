@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="global">
+        <div class="center">
+            <h1>Weather of the week in Toulouse :</h1>
+        </div>
+        <div class="cards">
+            <section>
+
+            </section>
+        </div>
+    </div>
+
+    <script>   
+        async function getAPI() {
+            const requestURL = 'http://localhost:3000/weather-api';
+            const request = new Request(requestURL);
+            const response = await fetch(request);
+            const getAPI = await response.json();
+
+            showWeather(getAPI);
+            }    
+
+            function showWeather(obj) {
+                const section = document.querySelector('section');
+                const daysOfWeek = obj['Jour'];
+                console.log(daysOfWeek)
+                const weatherWeek = obj['Temperature'];
+                const weatherImages = obj['Prediction'];
+                const myWeatherDay = document.createElement('article');
+        
+                for (var i = 0; i < daysOfWeek.length; i++) {
+                    const myDay = document.createElement('p');
+                    const myDayImg = document.createElement('img');
+                    myDayImg.src = weatherImages[i];
+                    myDay.textContent = daysOfWeek[i] + "\n --- " + weatherWeek[i+1];
+                    myDay.appendChild(myDayImg);
+                    myWeatherDay.appendChild(myDay);
+                    section.appendChild(myWeatherDay);
+                }
+            }
+            getAPI();
+        </script>
+</body>
+</html>
